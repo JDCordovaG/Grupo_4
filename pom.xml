@@ -29,6 +29,21 @@
 	<properties>
 		<java.version>25</java.version>
 	</properties>
+
+	<packaging>pom</packaging>
+	<modules>
+		<module>MSVC-compatibilidad_técnica</module>
+		<module>MSVC-consumo_energético</module>
+		<module>MSVC-cotizacion</module>
+		<module>MSVC-CPU</module>
+		<module>MSVC-fuente_poder</module>
+		<module>MSVC-GPU</module>
+		<module>MSVC-placa_madre</module>
+		<module>MSVC-RAM</module>
+		<module>MSVC-rendimiento</module>
+	</modules>
+
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
