@@ -30,5 +30,4 @@ public class RamDTO {
 
     @NotNull(message = "El campo voltaje no puede estar vacio")
     private Integer voltaje;
-
 }

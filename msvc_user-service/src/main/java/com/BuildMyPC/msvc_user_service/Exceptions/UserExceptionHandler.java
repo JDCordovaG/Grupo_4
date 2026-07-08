@@ -16,21 +16,18 @@ public class UserExceptionHandler extends RuntimeException {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errores = new HashMap<>();
-
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String nombreCampo = ((FieldError) error).getField();
             String mensajeError = error.getDefaultMessage();
             errores.put(nombreCampo, mensajeError);
         });
-
         return new ResponseEntity<>(errores, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(UserExceptionHandler.class)
-    public ResponseEntity<Map<String, String>> handleUserException(UserExceptionHandler ex) {
+    @ExceptionHandler(UserException.class)
+    public ResponseEntity<Map<String, String>> handleUserException(UserException ex) {
         Map<String, String> error = new HashMap<>();
         error.put("error", ex.getMessage());
-
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 }

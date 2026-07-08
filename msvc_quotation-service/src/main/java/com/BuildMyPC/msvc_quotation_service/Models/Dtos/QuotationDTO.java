@@ -1,10 +1,14 @@
 package com.BuildMyPC.msvc_quotation_service.Models.Dtos;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 public class QuotationDTO {
@@ -12,26 +16,41 @@ public class QuotationDTO {
     @NotNull(message = "El ID de la build es obligatorio")
     private Long buildId;
 
-    @NotNull(message = "El campo id de usuario no puede estar vacio")
+    @NotNull(message = "El ID del usuario es obligatorio")
     private Long usuarioId;
 
-    @NotNull(message = "El campo subtotal no puede estar vacio")
-    @Positive(message = "El subtotal debe ser mayor a 0")
-    private Integer subtotal;
+    @Min(value = 0, message = "El descuento no puede ser negativo")
+    private Double descuento = 0.0;
 
-    @NotNull(message = "El campo descuento no puede estar vacio")
-    private Integer descuento;
+    @NotEmpty(message = "La cotización debe incluir al menos un componente seleccionado")
+    @Valid
+    private List<ComponenteCotizadoDTO> componentesSeleccionados;
 
-    @NotNull(message = "El total es obligatorio")
-    private Double total;
+    /**
+     * Método auxiliar utilizado por el QuotationServiceImpl
+     * para extraer rápidamente la lista de precios y calcular el subtotal.
+     */
+    public List<Double> getPreciosComponentes() {
+        if (componentesSeleccionados == null) return List.of();
+        return componentesSeleccionados.stream()
+                .map(ComponenteCotizadoDTO::getPrecio)
+                .collect(Collectors.toList());
+    }
 
-    @NotNull(message = "El estado es obligatorio")
-    private String estado;
+    /**
+     * DTO anidado para estructurar los elementos individuales del carrito/build.
+     */
+    @Data
+    public static class ComponenteCotizadoDTO {
 
-    @NotNull(message = "El campo fecha de Emision no puede estar vacio")
-    private LocalDate fechaEmision;
+        @NotNull(message = "El ID del componente es obligatorio")
+        private Long componenteId;
 
-    @NotNull(message = "El campo fecha de Vencimiento no puede estar vacio")
-    private LocalDate fechaVencimiento;
+        @NotBlank(message = "El nombre del componente no puede estar vacío")
+        private String nombre;
 
+        @NotNull(message = "El precio del componente es obligatorio")
+        @Min(value = 1, message = "El precio del componente debe ser mayor a 0")
+        private Double precio;
+    }
 }

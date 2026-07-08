@@ -55,6 +55,6 @@ public class PowersupplyController {
     @ApiResponse(responseCode = "204", description = "Fuente inactiva")
     public ResponseEntity<Void> desactivar(@PathVariable Long id) {
         service.desactivarFuentePoder(id);
-        return ResponseEntity.noContent().build(); // Devuelve estándar HTTP 204
+        return ResponseEntity.noContent().build();
     }
 }

@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface RamRepository extends JpaRepository<Ram, Long> {
-    List<Ram> findByComponenteId(Long ComponenteId);
+    List<Ram> findByComponenteId(Long componenteId);
 
 }

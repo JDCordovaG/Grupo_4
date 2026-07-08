@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/placas-madre") // URLs con guiones por convención REST
+@RequestMapping("/api/v1/placas-madre")
 @Tag(name = "Catálogo Placas Madre - V1", description = "Endpoints CRUD para tarjetas madre")
 public class MotherboardController {
 
@@ -55,6 +55,6 @@ public class MotherboardController {
     @ApiResponse(responseCode = "204", description = "Placa madre inactiva")
     public ResponseEntity<Void> desactivar(@PathVariable Long id) {
         service.desactivarPlacamadre(id);
-        return ResponseEntity.noContent().build(); // Devuelve 204
+        return ResponseEntity.noContent().build();
     }
 }

@@ -36,4 +36,6 @@ public class Ram {
     @Column(nullable = false, name = "voltaje_ram")
     private Integer voltaje;
 
+    @Embedded
+    private Audit audit = new Audit();
 }

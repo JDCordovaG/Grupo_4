@@ -16,21 +16,18 @@ public class RamExceptionHandler extends RuntimeException {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errores = new HashMap<>();
-
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String nombreCampo = ((FieldError) error).getField();
             String mensajeError = error.getDefaultMessage();
             errores.put(nombreCampo, mensajeError);
         });
-
         return new ResponseEntity<>(errores, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(RamExceptionHandler.class)
-    public ResponseEntity<Map<String, String>> handleRamException(RamExceptionHandler ex) {
+    @ExceptionHandler(RamException.class)
+    public ResponseEntity<Map<String, String>> handleRamException(RamException ex) {
         Map<String, String> error = new HashMap<>();
         error.put("error", ex.getMessage());
-
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 }

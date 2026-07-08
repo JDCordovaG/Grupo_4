@@ -7,98 +7,61 @@ spring:
       server:
         webmvc:
           routes:
-
-            # ==========================
-            # AUTH
-            # ==========================
             - id: auth-service
               uri: lb://msvc_auth-service
               predicates:
                 - Path=/api/v1/auths/**
 
-            # ==========================
-            # USER
-            # ==========================
             - id: user-service
               uri: lb://msvc_user-service
               predicates:
                 - Path=/api/v1/users/**
 
-            # ==========================
-            # COMPONENT
-            # ==========================
             - id: component-service
               uri: lb://msvc_component-service
               predicates:
                 - Path=/api/v1/components/**
 
-            # ==========================
-            # CPU
-            # ==========================
             - id: cpu-service
               uri: lb://msvc_cpu-service
               predicates:
                 - Path=/api/v1/cpus/**
 
-            # ==========================
-            # GPU
-            # ==========================
             - id: gpu-service
               uri: lb://msvc_gpu-service
               predicates:
                 - Path=/api/v1/gpus/**
 
-            # ==========================
-            # MOTHERBOARD
-            # ==========================
             - id: motherboard-service
               uri: lb://msvc_motherboard-service
               predicates:
                 - Path=/api/v1/placas_madre/**
 
-            # ==========================
-            # RAM
-            # ==========================
             - id: ram-service
               uri: lb://msvc_ram-service
               predicates:
                 - Path=/api/v1/rams/**
 
-            # ==========================
-            # POWER SUPPLY
-            # ==========================
             - id: power-supply-service
               uri: lb://msvc_power-supply-service
               predicates:
                 - Path=/api/v1/fuentes_poder/**
 
-            # ==========================
-            # BUILD
-            # ==========================
             - id: build-service
               uri: lb://msvc_build-service
               predicates:
                 - Path=/api/v1/builds/**
 
-            # ==========================
-            # COMPATIBILITY
-            # ==========================
             - id: compatibility-service
               uri: lb://msvc_compatibility-service
               predicates:
                 - Path=/api/v1/compatibilities/**
 
-            # ==========================
-            # BENCHMARK
-            # ==========================
             - id: benchmark-service
               uri: lb://msvc_benchmark-service
               predicates:
                 - Path=/api/v1/benchmarks/**
 
-            # ==========================
-            # QUOTATION
-            # ==========================
             - id: quotation-service
               uri: lb://msvc_quotation-service
               predicates:

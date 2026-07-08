@@ -41,7 +41,7 @@ public class Motherboard {
     private String formato;
 
     @Column(nullable = false)
-    private Boolean activo; // Baja lógica optimizada
+    private Boolean activo;
 
     @Embedded
     private Audit audit = new Audit();

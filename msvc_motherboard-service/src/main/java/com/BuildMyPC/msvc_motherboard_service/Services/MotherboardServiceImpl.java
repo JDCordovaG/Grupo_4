@@ -97,7 +97,6 @@ public class MotherboardServiceImpl implements MotherboardService {
         log.info("Placa madre ID: {} marcada como INACTIVA", id);
     }
 
-    // Mappers manuales
     private Motherboard mapToEntity(MotherboardDTO dto) {
         Motherboard entity = new Motherboard();
         entity.setComponenteId(dto.getComponenteId());

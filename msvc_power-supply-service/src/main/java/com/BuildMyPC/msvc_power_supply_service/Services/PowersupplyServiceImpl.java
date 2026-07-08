@@ -95,7 +95,6 @@ public class PowersupplyServiceImpl implements PowersupplyService {
         log.info("Fuente de Poder ID: {} marcada como INACTIVA correctamente", id);
     }
 
-    // Mappers manuales encapsulados
     private Powersupply mapToEntity(PowersupplyDTO dto) {
         Powersupply entity = new Powersupply();
         entity.setComponenteId(dto.getComponenteId());

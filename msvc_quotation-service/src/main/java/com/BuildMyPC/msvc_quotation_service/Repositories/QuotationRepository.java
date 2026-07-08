@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface QuotationRepository extends JpaRepository<Quotation, Long> {
     List<Quotation> findByEstado(String estado);
-
+    List<Quotation> findByUsuarioId(Long usuarioId);
 }

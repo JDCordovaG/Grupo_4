@@ -1,38 +1,29 @@
 package com.BuildMyPC.msvc_quotation_service.Models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.*;
 
+@Entity
+@Table(name = "quotation_details")
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class DetalleQuotation {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "detalledetallequotation_id")
     private Long id;
 
-    @Column(nullable = false, name = "detallequotation_id")
-    private Long cotizacionId;
+    @Column(nullable = false)
+    private Long componenteId;
 
-    @Column(nullable = false, name = "usuario_id_detallequotation")
-    private String usuarioId;
+    @Column(nullable = false, length = 150)
+    private String nombre;
 
-    @Column(nullable = false, name = "subtotal_detallequotation")
-    private Integer subtotal;
+    @Column(nullable = false)
+    private Double precio;
 
-    @Column(nullable = false, name = "descuento_detallequotation")
-    private Integer descuento;
-
-    @Column(nullable = false, name = "total_detallequotation")
-    private Double total;
-
-    @Column(nullable = false, name = "estado_detallequotation")
-    private Double estado;
-
-    @Column(nullable = false, name = "fecha_emision_detallequotation")
-    private Integer fechaEmision;
-
-    @Column(nullable = false, name = "fecha_vencimiento_detallequotation")
-    private Boolean fechaVencimiento;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "quotation_id", nullable = false)
+    @JsonIgnore
+    private Quotation quotation;
 }

@@ -27,4 +27,6 @@ public class Direction {
     @Column(nullable = false, name = "detalle_direction")
     private String detalle;
 
+    @Embedded
+    private Audit audit = new Audit();
 }

@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDate;
 
 @Data
@@ -40,4 +39,6 @@ public class User {
     @Column(nullable = false, name = "fecha_registro_user")
     private LocalDate fechaRegistro;
 
+    @Embedded
+    private Audit audit = new Audit();
 }

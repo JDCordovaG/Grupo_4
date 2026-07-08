@@ -22,11 +22,9 @@ public class SwaggerConfig {
                         .description("Documentación de la API de gestión de auths"))
                 .components(new Components().addSecuritySchemes(ESQUEMA,
                         new SecurityScheme()
-                                .type(SecurityScheme.Type.HTTP)   // autenticacion por cabecera HTTP
-                                .scheme("bearer")                 // formato "Authorization: Bearer <token>"
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("bearer")
                                 .bearerFormat("JWT")))
-                // Aplica ese esquema a TODOS los endpoints: asi Swagger envia el token al ejecutar
-                // "Try it out". Sin esto, con la seguridad activa toda prueba devolveria 401.
                 .addSecurityItem(new SecurityRequirement().addList(ESQUEMA));
     }
 }

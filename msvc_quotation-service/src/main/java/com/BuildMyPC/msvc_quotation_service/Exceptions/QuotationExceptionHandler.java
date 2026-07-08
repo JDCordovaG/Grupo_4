@@ -14,23 +14,20 @@ import java.util.Map;
 public class QuotationExceptionHandler extends RuntimeException {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
+    public ResponseEntity<Map<String, String>> handleValidaciones(MethodArgumentNotValidException ex) {
         Map<String, String> errores = new HashMap<>();
-
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String nombreCampo = ((FieldError) error).getField();
-            String mensajeError = error.getDefaultMessage();
-            errores.put(nombreCampo, mensajeError);
+        ex.getBindingResult().getAllErrors().forEach(err -> {
+            String campo = ((FieldError) err).getField();
+            String msg = err.getDefaultMessage();
+            errores.put(campo, msg);
         });
-
         return new ResponseEntity<>(errores, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(QuotationExceptionHandler.class)
-    public ResponseEntity<Map<String, String>> handleQuotationException(QuotationExceptionHandler ex) {
+    @ExceptionHandler(QuotationException.class)
+    public ResponseEntity<Map<String, String>> handleNegocio(QuotationException ex) {
         Map<String, String> error = new HashMap<>();
         error.put("error", ex.getMessage());
-
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 }

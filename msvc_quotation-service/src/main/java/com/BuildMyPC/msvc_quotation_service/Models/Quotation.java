@@ -1,43 +1,54 @@
 package com.BuildMyPC.msvc_quotation_service.Models;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-@Data
-@NoArgsConstructor
 @Entity
 @Table(name = "quotations")
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class Quotation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "quotation_id")
     private Long id;
 
-    @Column(nullable = false, name = "build_id_quotation")
+    @Column(nullable = false)
     private Long buildId;
 
-    @Column(nullable = false, name = "usuario_id_quotation")
+    @Column(nullable = false)
     private Long usuarioId;
 
-    @Column(nullable = false, name = "subtotal_quotation")
-    private Integer subtotal;
+    @Column(nullable = false)
+    private Double subtotal;
 
-    @Column(nullable = false, name = "descuento_quotation")
-    private Integer descuento;
+    @Column(nullable = false)
+    private Double descuento;
 
-    @Column(nullable = false, name = "total_quotation")
+    @Column(nullable = false)
     private Double total;
 
-    @Column(nullable = false, name = "estado_quotation")
+    @Column(nullable = false, length = 30)
     private String estado;
 
-    @Column(nullable = false, name = "fecha_emision_quotation")
+    @Column(nullable = false)
     private LocalDate fechaEmision;
 
-    @Column(nullable = false, name = "fecha_vencimiento_quotation")
+    @Column(nullable = false)
     private LocalDate fechaVencimiento;
+
+    @OneToMany(mappedBy = "quotation", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<DetalleQuotation> detalles = new ArrayList<>();
+
+    @Embedded
+    @Builder.Default
+    private Audit audit = new Audit();
+
+    public void agregarDetalle(DetalleQuotation detalle) {
+        detalles.add(detalle);
+        detalle.setQuotation(this);
+    }
 }
