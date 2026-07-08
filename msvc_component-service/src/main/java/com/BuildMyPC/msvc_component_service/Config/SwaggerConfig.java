@@ -1,4 +1,4 @@
-package com.BuildMyPC.msvc_auth_service.Config;
+package com.BuildMyPC.msvc_component_service.Config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;

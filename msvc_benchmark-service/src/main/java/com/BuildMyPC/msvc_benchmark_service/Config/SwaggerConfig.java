@@ -1,4 +1,4 @@
-package com.BuildMyPC.msvc_auth_service.Config;
+package com.BuildMyPC.msvc_benchmark_service.Config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -17,9 +17,9 @@ public class SwaggerConfig {
     public OpenAPI customOpenApi(){
         return new OpenAPI()
                 .info(new Info()
-                        .title("API Auths")
+                        .title("API Benchmarks")
                         .version("1.0")
-                        .description("Documentación de la API de gestión de auths"))
+                        .description("Documentación de la API de gestión de benchmarks"))
                 .components(new Components().addSecuritySchemes(ESQUEMA,
                         new SecurityScheme()
                                 .type(SecurityScheme.Type.HTTP)   // autenticacion por cabecera HTTP

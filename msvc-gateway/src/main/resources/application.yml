@@ -1,210 +1,158 @@
 spring:
   application:
     name: msvc-gateway
+
   cloud:
     gateway:
       server:
         webmvc:
-          # Cada ruta: si la URL entra por el patron 'predicates', el gateway la reenvia
-          # a 'uri'. lb:// significa "busca este nombre en Eureka y balancea la carga".
           routes:
-            - id: msvc_auth-service
+
+            # ==========================
+            # AUTH
+            # ==========================
+            - id: auth-service
               uri: lb://msvc_auth-service
               predicates:
-                - Path=/api/v1/auths/**,/api/v2/auths/**
+                - Path=/api/v1/auths/**
 
-            - id: msvc_benchmark-service
-              uri: lb://msvc_benchmark-service
-              predicates:
-                - Path=/api/v1/benchmarks/**,/api/v2/benchmarks/**
-
-            - id: msvc_build-service
-              uri: lb://msvc_build-service
-              predicates:
-                - Path=/api/v1/builds/**,/api/v2/builds/**
-
-            - id: msvc_compatibility-service
-              uri: lb://msvc_compatibility-service
-              predicates:
-                - Path=/api/v1/compatibilities/**,/api/v2/compatibilities/**
-
-            - id: msvc_component-service
-              uri: lb://msvc_component-service
-              predicates:
-                - Path=/api/v1/components/**,/api/v2/components/**
-
-            - id: msvc_cpu-service
-              uri: lb://msvc_cpu-service
-              predicates:
-                - Path=/api/v1/cpus/**,/api/v2/cpus/**
-
-            - id: msvc_gpu-service
-              uri: lb://msvc_gpu-service
-              predicates:
-                - Path=/api/v1/gpus/**,/api/v2/gpus/**
-
-            - id: msvc_motherboard-service
-              uri: lb://msvc_motherboard-service
-              predicates:
-                - Path=/api/v1/placas_madre/**,/api/v2/placas_madre/**
-
-            - id: msvc_power-supply-service
-              uri: lb://msvc_power-supply-service
-              predicates:
-                - Path=/api/v1/fuentes_poder/**,/api/v2/fuentes_poder/**
-
-            - id: msvc_quotation-service
-              uri: lb://msvc_quotation-service
-              predicates:
-                - Path=/api/v1/quotations/**,/api/v2/quotations/**
-
-            - id: msvc_ram-service
-              uri: lb://msvc_ram-service
-              predicates:
-                - Path=/api/v1/rams/**,/api/v2/rams/**
-
-            - id: msvc_user-service
+            # ==========================
+            # USER
+            # ==========================
+            - id: user-service
               uri: lb://msvc_user-service
               predicates:
-                - Path=/api/v1/users/**,/api/v2/users/**
+                - Path=/api/v1/users/**
 
-
-            # Rutas para el OpenAPI (JSON) de cada microservicio. El Swagger UI del gateway
-            # las consume. Usan el prefijo /api-docs/<svc> (NO /v3/api-docs) para no chocar con
-            # el /v3/api-docs propio del gateway. RewritePath lo traduce al /v3/api-docs real del servicio.
-            - id: auths-api-docs
-              uri: lb://msvc_auth-service
-              predicates:
-                - Path=/api-docs/auths
-              filters:
-                - RewritePath=/api-docs/auths, /v3/api-docs
-
-            - id: benchmarks-api-docs
-              uri: lb://msvc_benchmark-service
-              predicates:
-                - Path=/api-docs/benchmarks
-              filters:
-                - RewritePath=/api-docs/benchmarks, /v3/api-docs
-
-            - id: builds-api-docs
-              uri: lb://msvc_build-service
-              predicates:
-                - Path=/api-docs/builds
-              filters:
-                - RewritePath=/api-docs/builds, /v3/api-docs
-
-            - id: compatibilities-api-docs
-              uri: lb://msvc_compatibility-service
-              predicates:
-                - Path=/api-docs/compatibilities
-              filters:
-                - RewritePath=/api-docs/compatibilities, /v3/api-docs
-
-            - id: components-api-docs
+            # ==========================
+            # COMPONENT
+            # ==========================
+            - id: component-service
               uri: lb://msvc_component-service
               predicates:
-                - Path=/api-docs/components
-              filters:
-                - RewritePath=/api-docs/components, /v3/api-docs
+                - Path=/api/v1/components/**
 
-            - id: cpus-api-docs
+            # ==========================
+            # CPU
+            # ==========================
+            - id: cpu-service
               uri: lb://msvc_cpu-service
               predicates:
-                - Path=/api-docs/cpus
-              filters:
-                - RewritePath=/api-docs/cpus, /v3/api-docs
+                - Path=/api/v1/cpus/**
 
-            - id: gpus-api-docs
+            # ==========================
+            # GPU
+            # ==========================
+            - id: gpu-service
               uri: lb://msvc_gpu-service
               predicates:
-                - Path=/api-docs/gpus
-              filters:
-                - RewritePath=/api-docs/gpus, /v3/api-docs
+                - Path=/api/v1/gpus/**
 
-            - id: placas_madre-api-docs
+            # ==========================
+            # MOTHERBOARD
+            # ==========================
+            - id: motherboard-service
               uri: lb://msvc_motherboard-service
               predicates:
-                - Path=/api-docs/placas_madre
-              filters:
-                - RewritePath=/api-docs/placas_madre, /v3/api-docs
+                - Path=/api/v1/placas_madre/**
 
-            - id: fuentes_poder-api-docs
-              uri: lb://msvc_power-supply-service
-              predicates:
-                - Path=/api-docs/fuentes_poder
-              filters:
-                - RewritePath=/api-docs/fuentes_poder, /v3/api-docs
-
-            - id: quotations-api-docs
-              uri: lb://msvc_quotation-service
-              predicates:
-                - Path=/api-docs/quotations
-              filters:
-                - RewritePath=/api-docs/quotations, /v3/api-docs
-
-            - id: rams-api-docs
+            # ==========================
+            # RAM
+            # ==========================
+            - id: ram-service
               uri: lb://msvc_ram-service
               predicates:
-                - Path=/api-docs/rams
-              filters:
-                - RewritePath=/api-docs/rams, /v3/api-docs
+                - Path=/api/v1/rams/**
 
-            - id: users-api-docs
-              uri: lb://msvc_user-service
+            # ==========================
+            # POWER SUPPLY
+            # ==========================
+            - id: power-supply-service
+              uri: lb://msvc_power-supply-service
               predicates:
-                - Path=/api-docs/users
-              filters:
-                - RewritePath=/api-docs/users, /v3/api-docs
+                - Path=/api/v1/fuentes_poder/**
 
-# Punto de entrada unico: todo el trafico entra por aqui.
+            # ==========================
+            # BUILD
+            # ==========================
+            - id: build-service
+              uri: lb://msvc_build-service
+              predicates:
+                - Path=/api/v1/builds/**
+
+            # ==========================
+            # COMPATIBILITY
+            # ==========================
+            - id: compatibility-service
+              uri: lb://msvc_compatibility-service
+              predicates:
+                - Path=/api/v1/compatibilities/**
+
+            # ==========================
+            # BENCHMARK
+            # ==========================
+            - id: benchmark-service
+              uri: lb://msvc_benchmark-service
+              predicates:
+                - Path=/api/v1/benchmarks/**
+
+            # ==========================
+            # QUOTATION
+            # ==========================
+            - id: quotation-service
+              uri: lb://msvc_quotation-service
+              predicates:
+                - Path=/api/v1/quotations/**
+
 server:
   port: 8080
 
-# El gateway tambien es cliente Eureka para poder resolver los lb://
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
 
-# Swagger UI agregado: una sola pagina con un desplegable para elegir el microservicio.
 springdoc:
+  api-docs:
+    enabled: true
+
   swagger-ui:
     enabled: true
     path: /docs/swagger-ui.html
-    # El desplegable apunta a los docs de cada servicio (ruteados por el gateway via lb://).
+
     urls:
-      - name: auths
-        url: /api-docs/auths
+      - name: Auth Service
+        url: http://localhost:8085/v3/api-docs
 
-      - name: benchmarks
-        url: /api-docs/benchmarks
+      - name: User Service
+        url: http://localhost:8091/v3/api-docs
 
-      - name: builds
-        url: /api-docs/builds
+      - name: Component Service
+        url: http://localhost:8089/v3/api-docs
 
-      - name: compatibilities
-        url: /api-docs/compatibilities
+      - name: CPU Service
+        url: http://localhost:8081/v3/api-docs
 
-      - name: components
-        url: /api-docs/components
+      - name: GPU Service
+        url: http://localhost:8082/v3/api-docs
 
-      - name: cpus
-        url: /api-docs/cpus
+      - name: Motherboard Service
+        url: http://localhost:8083/v3/api-docs
 
-      - name: gpus
-        url: /api-docs/gpus
+      - name: RAM Service
+        url: http://localhost:8090/v3/api-docs
 
-      - name: placas_madre
-        url: /api-docs/placas_madre
+      - name: Power Supply Service
+        url: http://localhost:8084/v3/api-docs
 
-      - name: fuentes_poder
-        url: /api-docs/fuentes_poder
+      - name: Build Service
+        url: http://localhost:8087/v3/api-docs
 
-      - name: quotations
-        url: /api-docs/quotations
+      - name: Compatibility Service
+        url: http://localhost:8088/v3/api-docs
 
-      - name: rams
-        url: /api-docs/rams
+      - name: Benchmark Service
+        url: http://localhost:8086/v3/api-docs
 
-      - name: users
-        url: /api-docs/users
+      - name: Quotation Service
+        url: http://localhost:8092/v3/api-docs
