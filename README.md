@@ -150,6 +150,13 @@ El proyecto utiliza bases de datos H2 locales almacenadas en la carpeta:
 
 ---
 
+### Link para el Gateway
+
+```bash
+http://localhost:8080/docs/swagger-ui.html
+```
+
+
 ## Estado del Proyecto
 
 Proyecto académico desarrollado para la asignatura de Fullstack utilizando arquitectura de microservicios.
